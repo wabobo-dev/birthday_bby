@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday, Rekia</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      /* Side B: Silver & Slate Palette */
+      --bg: #0f172a;
+      --card: #1e293b;
+      --accent: #94a3b8;
+      --text: #f1f5f9;
+      --soft: #64748b;
+      --shadow: rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body, html {
+      min-height: 100%;
+      background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+      color: var(--text);
+      font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      text-rendering: optimizeLegibility;
+      line-height: 1.5;
+    }
+
+    .page {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+
+    .card {
+      display: grid;
+      gap: 1.15rem;
+      max-width: 46rem;
+      width: min(100%, 44rem);
+      background: rgba(30, 41, 59, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px var(--shadow);
+      padding: clamp(1.25rem, 2vw, 2rem);
+      animation: fadeIn 0.9s ease-out both;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      gap: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--soft);
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #ffffff 100%);
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-top: 0.1rem;
+    }
+
+    .message {
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      gap: 1rem;
+      display: grid;
+      line-height: 1.7;
+    }
+
+    .message p:first-child {
+      min-height: 4.5em; /* Stability for typing effect */
+    }
+
+    .pill {
+      display: inline-block;
+      margin-top: 0.6rem;
+      padding: 0.35rem 1.5rem;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: #e2e8f0;
+      font-weight: 500;
+      font-size: 0.85rem;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .control {
+      margin-top: 0.7rem;
+      text-align: center;
+    }
+
+    .button {
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      border-radius: 999px;
+      padding: 0.7rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #f1f5f9;
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      background: rgba(148, 163, 184, 0.1);
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+
+    .footer {
+      text-align: center;
+      color: #64748b;
+      font-size: 0.82rem;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .card { padding: 1.5rem; }
+      .title { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="card">
+      <div class="header">
+        <div class="subtitle">A quiet wish for a special day</div>
+        <div class="title">Happy Birthday, Rekia🤍</div>
+      </div>
+
+      <div class="message">
+        <p id="type-target">I couldn’t let today pass without sending my best wishes. Regardless of where we stand or the silence between us, I still celebrate the person you are and the light you bring into the world.</p>
+        <br>
+        <p>You deserve a day that is as peaceful and brilliant as your heart. I'm always rooting for your happiness, today and every day after.</p>
+        <div class="pill">Thinking of you. Best,<br>Abdulwahab</div>
+      </div>
+
+      <p class="footer">
+        <strong>System Status:</strong> Optimized & Stable. <br> 
+        Crafted with care by Wabobo.
+      </p>
+    </div>
+  </div>
+
+  <script>
+  const messageP = document.querySelector('.message p:first-child');
+  const text = messageP.textContent;
+  messageP.textContent = '';
+  let i = 0;
+
+  function typeWriter() {
+    if (i < text.length) {
+      messageP.textContent += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, 50);
+    } else {
+      // The text is finished! Wait 800ms then launch the celebration
+      setTimeout(() => {
+        autoCelebrate();
+      }, 800);
+    }
+  }
+
+  // Set the typing to start on load
+  window.addEventListener('load', typeWriter);
+
+  function autoCelebrate() {
+    // First, a big burst in the middle
+    confetti({
+      particleCount: 150,
+      spread: 100,
+      origin: { y: 0.6 },
+      colors: ['#94a3b8', '#cbd5e1', '#ffffff']
+    });
+
+    // Then, a few extra "side cannons" for that premium feel
+    setTimeout(() => {
+      confetti({
+        particleCount: 50,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#f0a500', '#ffffff']
+      });
+      confetti({
+        particleCount: 50,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#f0a500', '#ffffff']
+      });
+    }, 400);
+  }
+</script>
+</body>
+</html>
